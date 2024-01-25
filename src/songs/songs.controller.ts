@@ -22,7 +22,13 @@ export class SongsController {
 
   @Get()
   findAll() {
-    return this.songsService.findAll();
+    const songsList = this.songsService.findAll();
+
+    const responseData = {
+      data: songsList,
+    };
+
+    return responseData;
   }
 
   @Get(':id')

@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateSongDto } from './dto/create-song.dto';
 import { UpdateSongDto } from './dto/update-song.dto';
+import { Song } from './entities/song.entity';
 
 @Injectable()
 export class SongsService {
+  constructor(@InjectRepository(Song) private repository: Repository<Song>) {}
+
   create(createSongDto: CreateSongDto) {
     return 'This action adds a new song';
   }
 
-  findAll() {
-    return `This action returns all songs`;
+  async findAll() {
+    return await this.repository.find();
   }
 
   findOne(id: number) {
