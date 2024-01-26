@@ -1,4 +1,3 @@
-import { AvailableSongKeys } from '../dto/create-song.dto';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'songs' })
@@ -6,6 +5,10 @@ export class Song {
   constructor() {
     if (!this.id) {
       this.id = crypto.randomUUID();
+    }
+
+    if (!this.observation) {
+      this.observation = '';
     }
   }
 
@@ -22,7 +25,7 @@ export class Song {
   tempoSignature: string;
 
   @Column({ length: 2 })
-  songKey: AvailableSongKeys;
+  songKey: string;
 
   @Column()
   observation?: string;
