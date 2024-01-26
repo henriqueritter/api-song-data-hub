@@ -21,8 +21,8 @@ export class SongsController {
   }
 
   @Get()
-  findAll() {
-    const songsList = this.songsService.findAll();
+  async findAll() {
+    const songsList = await this.songsService.findAll();
 
     const responseData = {
       data: songsList,

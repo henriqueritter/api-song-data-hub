@@ -9,8 +9,12 @@ import { Song } from './entities/song.entity';
 export class SongsService {
   constructor(@InjectRepository(Song) private repository: Repository<Song>) {}
 
-  create(createSongDto: CreateSongDto) {
-    return 'This action adds a new song';
+  async create(createSongDto: CreateSongDto) {
+    const song = this.repository.create(createSongDto);
+
+    await this.repository.save(song);
+
+    return song;
   }
 
   async findAll() {
