@@ -43,6 +43,6 @@ export class SongsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.songsService.remove(+id);
+    return this.songsService.remove(id);
   }
 }
