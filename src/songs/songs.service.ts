@@ -21,12 +21,24 @@ export class SongsService {
     return await this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} song`;
+  async findOne(id: string) {
+    return await this.repository.findOne({ where: { id } });
   }
 
-  update(id: number, updateSongDto: UpdateSongDto) {
-    return `This action updates a #${id} song`;
+  async update(id: string, updateSongDto: UpdateSongDto) {
+    const song = await this.repository.findOne({ where: { id } });
+
+    song.name = updateSongDto.name ? updateSongDto.name : song.name;
+    song.observation = updateSongDto.observation
+      ? updateSongDto.observation
+      : song.observation;
+    song.songKey = updateSongDto.songKey ? updateSongDto.songKey : song.songKey;
+    song.tempo = updateSongDto.tempo ? updateSongDto.tempo : song.tempo;
+    song.tempoSignature = updateSongDto.tempoSignature
+      ? updateSongDto.tempoSignature
+      : song.tempoSignature;
+
+    await this.repository.save(song);
   }
 
   remove(id: number) {
